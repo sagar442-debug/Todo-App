@@ -10,13 +10,22 @@ function App() {
   }
 
   const handleSubmit = () => {
-    setTodoList([...todoList, todo])
+    const finalTodos = [...todoList, todo]
+    setTodoList(finalTodos)
+    localStorage.setItem('Items', JSON.stringify(finalTodos))
   }
 
   const handleDelete=(index)=>{
     const filteredData = todoList.filter((_,i)=>i!== index)
     setTodoList(filteredData)
+    localStorage.setItem('Items', JSON.stringify(filteredData))
   }
+
+  useEffect(()=>{
+    const storedData = JSON.parse(localStorage.getItem('Items'))
+    setTodoList(storedData)
+  },[])
+
 
 
   return (
